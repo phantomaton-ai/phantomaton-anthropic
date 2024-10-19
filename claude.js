@@ -14,7 +14,7 @@ class Claude {
   constructor({ apiKey }) {
     this.headers = {
       Accept: 'application/json',
-      'x-api-key': this.apiKey,
+      'x-api-key': apiKey,
       'anthropic-version': '2023-06-01',
       'Content-Type': 'application/json',
     };

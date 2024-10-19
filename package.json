@@ -15,6 +15,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "type": "module",
   "description": "",
   "dependencies": {
     "lovecraft": "^1.0.2",

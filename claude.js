@@ -1,5 +1,8 @@
 import fetch from 'node-fetch';
 
+// To allow easy mocking in test
+export const deps = { fetch };
+
 export class ClaudeError extends Error {
   constructor(message, response) {
     super(message);
@@ -21,7 +24,7 @@ class Claude {
     const payload = { model: 'claude-3-haiku-20240307', max_tokens: 4096, messages, system };
 
     try {
-      const fetched = await fetch('https://api.anthropic.com/v1/messages', {
+      const fetched = await deps.fetch('https://api.anthropic.com/v1/messages', {
         body: JSON.stringify(payload),
         headers: this.headers,
         method: 'POST',

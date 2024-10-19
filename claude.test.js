@@ -1,53 +1,51 @@
 import { expect, stub } from 'lovecraft';
-import { claude, ClaudeError } from './claude.js';
+import claude, { deps, ClaudeError } from './claude.js';
 import fetch from 'node-fetch';
 
 describe('Claude', () => {
-  let claude_instance;
+  let instance;
 
   beforeEach(() => {
-    claude_instance = claude({ apiKey: 'test-api-key' });
+    stub(deps, 'fetch');
+    instance = claude({ apiKey: 'test-api-key' });
+  });
+
+  afterEach(() => {
+    deps.fetch.restore();
   });
 
   describe('converse', () => {
     it('should return a response from the Anthropic API', async () => {
       const mockResponse = { role: 'assistant', content: 'This is a test response.' };
-      stub(fetch, 'fetch').resolves({
-        ok: true,
-        json: async () => mockResponse,
-      });
+      deps.fetch.resolves({ ok: true, json: async () => mockResponse });
 
-      const response = await claude_instance.converse([{ role: 'user', content: 'Hello' }]);
+      const response = await instance.converse([{ role: 'user', content: 'Hello' }]);
       expect(response).to.deep.equal(mockResponse);
-
-      fetch.fetch.restore();
     });
 
     it('should throw a ClaudeError on error response', async () => {
-      const mockErrorResponse = { error: 'Something went wrong' };
-      stub(fetch, 'fetch').resolves({
-        ok: false,
-        json: async () => mockErrorResponse,
-      });
+      const mockResponse = { error: 'Something went wrong' };
+      deps.fetch.resolves({ ok: false, json: async () => mockResponse });
 
-      await expect(claude_instance.converse([{ role: 'user', content: 'Hello' }])).to.be.rejectedWith(
-        ClaudeError,
-        'Error from Anthropic API'
-      );
-
-      fetch.fetch.restore();
+      try {
+        await instance.converse([{ role: 'user', content: 'Hello' }]);
+        expect.fail();
+      } catch (error) {
+        expect(error).to.be.instanceOf(ClaudeError);
+        expect(error.message).to.equal('Error from Anthropic API');
+      }
     });
 
     it('should throw a ClaudeError on fetch error', async () => {
-      const mockError = new Error('Network error');
-      stub(fetch, 'fetch').rejects(mockError);
-
-      await expect(claude_instance.converse([{ role: 'user', content: 'Hello' }])).to.be.rejectedWith(
-        ClaudeError,
-        'Error fetching from Anthropic API'
-      );
-
-      fetch.fetch.restore();
+      deps.fetch.rejects(new Error('Network error'));
+      
+      try {
+        await instance.converse([{ role: 'user', content: 'Hello' }]);
+        expect.fail();
+      } catch (error) {
+        expect(error).to.be.instanceOf(ClaudeError);
+        expect(error.message).to.equal('Error fetching from Anthropic API');
+      }
     });
   });
 });

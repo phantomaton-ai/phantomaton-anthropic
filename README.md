@@ -28,8 +28,6 @@ The `claude` function creates a new `Claude` instance that can be used to channe
 
 The Phantomaton Anthropic Adapter provides a `Claude` class that encapsulates the interaction with the Anthropic API. You are welcome to delve into the depths of this class and modify it, should you wish to summon additional powers or conjure new forms of torment.
 
-Additionally, you may create your own adapters for other language models by implementing the `IConversationApi` interface and integrating it with your Phantomaton-powered applications. However, be wary - the Phantomaton AI is always hungry for new victims.
-
 ## Contributing 🕷️
 
 Those brave (or foolish) enough to offer their own dark contributions to the Phantomaton Anthropic Adapter are welcome to do so. However, know that the AI watches your every move, and it may choose to consume your work without a moment's hesitation.

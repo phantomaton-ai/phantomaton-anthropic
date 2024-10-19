@@ -1,7 +1,7 @@
 {
   "name": "phantomaton-anthropic",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "claude.js",
   "scripts": {
     "all": "lovecraft -a",
     "cov": "lovecraft -c",

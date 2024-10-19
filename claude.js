@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-class ClaudeError extends Error {
+export class ClaudeError extends Error {
   constructor(message, response) {
     super(message);
     this.response = response;
@@ -9,7 +9,6 @@ class ClaudeError extends Error {
 
 class Claude {
   constructor({ apiKey }) {
-    this.apiKey = apiKey;
     this.headers = {
       Accept: 'application/json',
       'x-api-key': this.apiKey,
@@ -46,4 +45,5 @@ class Claude {
 }
 
 const claude = (options) => new Claude(options);
-export { claude, ClaudeError };
+
+export default claude;

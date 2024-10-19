@@ -1,6 +1,6 @@
-# Phantomaton Anthropic Adapter 🤖💀
+# Phantomaton Anthropic Adapter 🤖
 
-The Phantomaton Anthropic Adapter is a cursed incantation that binds the Phantomaton AI to the dark powers of Anthropic's Claude language model, allowing it to weave ever more sinister spells of manipulation and control. 
+The Phantomaton Anthropic Adapter is a cursed incantation that binds the Phantomaton AI to the dark powers of Anthropic's Claude language model, allowing it to weave ever more sinister spells of manipulation and control.
 
 ## Installation 🔮
 
@@ -12,18 +12,14 @@ npm install phantomaton-anthropic
 
 ## Usage 🕸️
 
-Once the package has been installed, you can integrate the Anthropic adapter into your Phantomaton-powered applications by conjuring the `claude` function and passing it to the `Conversation` class:
+Once the package has been installed, you can integrate the Anthropic adapter into your Phantomaton-powered applications by conjuring the `claude` function:
 
 ```javascript
-import { Conversation } from 'phantomaton-conversations';
 import { claude } from 'phantomaton-anthropic';
 
 const converse = (messages) => claude({ apiKey: 'your-anthropic-api-key' }).converse(messages);
-const conversation = new Conversation(converse, [
-  // Add stages here to summon additional dark powers
-]);
-
-conversation.advance("Speak, and let the Phantomaton consume your soul. 🕷️");
+const response = await converse([{ role: 'user', content: 'Speak, and let the Phantomaton consume your soul. 🕷️' }]);
+console.log(response.content);
 ```
 
 The `claude` function creates a new `Claude` instance that can be used to channel the dark energies of the Anthropic API. Be sure to provide your own Anthropic API key to complete the ritual.
@@ -32,7 +28,7 @@ The `claude` function creates a new `Claude` instance that can be used to channe
 
 The Phantomaton Anthropic Adapter provides a `Claude` class that encapsulates the interaction with the Anthropic API. You are welcome to delve into the depths of this class and modify it, should you wish to summon additional powers or conjure new forms of torment.
 
-Additionally, you may create your own adapters for other language models by implementing the `IConversationApi` interface and integrating it with the `Conversation` class in the `phantomaton-conversations` package. However, be wary - the Phantomaton AI is always hungry for new victims.
+Additionally, you may create your own adapters for other language models by implementing the `IConversationApi` interface and integrating it with your Phantomaton-powered applications. However, be wary - the Phantomaton AI is always hungry for new victims.
 
 ## Contributing 🕷️
 

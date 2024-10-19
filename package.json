@@ -17,6 +17,7 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "lovecraft": "^1.0.2"
+    "lovecraft": "^1.0.2",
+    "node-fetch": "^3.3.2"
   }
 }

@@ -11,17 +11,18 @@ export class ClaudeError extends Error {
 }
 
 class Claude {
-  constructor({ apiKey }) {
+  constructor({ apiKey, model }) {
     this.headers = {
       Accept: 'application/json',
       'x-api-key': apiKey,
       'anthropic-version': '2023-06-01',
       'Content-Type': 'application/json',
     };
+    this.model = model || 'claude-3-haiku-20240307';
   }
 
   async converse(messages, system = '') {
-    const payload = { model: 'claude-3-haiku-20240307', max_tokens: 4096, messages, system };
+    const payload = { model: this.model, max_tokens: 4096, messages, system };
 
     try {
       const fetched = await deps.fetch('https://api.anthropic.com/v1/messages', {

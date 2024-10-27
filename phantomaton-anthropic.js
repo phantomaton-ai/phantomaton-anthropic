@@ -25,7 +25,8 @@ const anthropic = (options) => {
       [system.system.resolve]
       (system) => new Assistant(instance, system)
     )
-  ]
+  ];
+  return instance;
 ];
 
 export default anthropic;

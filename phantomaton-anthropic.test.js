@@ -7,12 +7,15 @@ import anthropic from './phantomaton-anthropic.js';
 
 describe('Phantomaton Anthropic', () => {
   let container;
+  let instance;
 
   beforeEach(() => {
     container = hierophant();
+    instance = anthropic();
     system().install.forEach(c => container.install(c));
     conversations().install.forEach(c => container.install(c));
-    container.install(anthropic().install);
+    instance.install.forEach(c => container.install(c));
+    stub(instance, 'converse');
   });
 
   it('provides an assistant that uses the system prompt', async () => {
@@ -21,9 +24,8 @@ describe('Phantomaton Anthropic', () => {
     const assistantReply = 'I am doing well, thank you for asking.';
 
     container.install(priestess.input.resolver());
-    container.install(priestess.input.provider([], () => userMessage));
-
-    container.install(system.system.provider([], () => systemPrompt));
+    container.install(priestess.input.provider([], () => () => userMessage));
+    container.install(system.system.provider([], () => () => systemPrompt));
 
     const [getAssistant] = container.resolve(conversations.assistant.resolve);
     const assistant = getAssistant();

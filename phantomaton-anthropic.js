@@ -18,15 +18,15 @@ class Assistant {
   }
 }
 
-const anthropic = (options) => {
+const anthropic = (options = {}) => {
   const instance = claude(options);
   instance.install = [
     conversations.assistant.provider(
-      [system.system.resolve]
-      (system) => new Assistant(instance, system)
+      [system.system.resolve],
+      (system) => () => new Assistant(instance, system)
     )
   ];
   return instance;
-];
+};
 
 export default anthropic;

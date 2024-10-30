@@ -8,11 +8,11 @@ class Assistant {
     this.system = system;
   }
 
-  async converse(turns) {
-    const messages = turns.map(({ message, reply }) => [
+  async converse(turns, message) {
+    const messages = [...turns.map(({ message, reply }) => [
       { role: 'user', content: message },
       { role: 'assistant', content: reply }
-    ]);
+    ]), { role: 'user', content: message } ];
     const system = this.system();
     return this.instance.converse(messages, system);
   }
@@ -23,7 +23,7 @@ const anthropic = (options = {}) => {
   instance.install = [
     conversations.assistant.provider(
       [system.system.resolve],
-      (system) => () => new Assistant(instance, system)
+      ([system]) => () => new Assistant(instance, system)
     )
   ];
   return instance;

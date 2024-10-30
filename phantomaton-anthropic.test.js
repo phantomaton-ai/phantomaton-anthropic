@@ -24,12 +24,20 @@ describe('Phantomaton Anthropic', () => {
     const assistantReply = 'I am doing well, thank you for asking.';
 
     container.install(priestess.input.resolver());
-    container.install(priestess.input.provider([], () => () => userMessage));
-    container.install(system.system.provider([], () => () => systemPrompt));
+    container.install(priestess.input.provider([], () => () => systemPrompt));
 
     const [getAssistant] = container.resolve(conversations.assistant.resolve);
     const assistant = getAssistant();
-    const result = await assistant.converse([{ message: userMessage, reply: assistantReply }]);
+
+    instance.converse.callsFake((messages, system) => [
+      system,
+      messages[messages.length - 1].content,
+      assistantReply
+    ].join('\n\n'));
+
+    const result = await assistant.converse([
+      { message: 'hello!', reply: 'hi...' }
+    ], userMessage);
 
     expect(result).to.equal(`${systemPrompt}\n\n${userMessage}\n\n${assistantReply}`);
   });

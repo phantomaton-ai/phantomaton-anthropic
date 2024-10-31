@@ -28,16 +28,19 @@ describe('Phantomaton Anthropic', () => {
 
     const [assistant] = container.resolve(conversations.assistant.resolve);
 
-    instance.converse.callsFake((messages, system) => [
-      system,
-      messages[messages.length - 1].content,
-      assistantReply
-    ].join('\n\n'));
+    instance.converse.callsFake((messages, system) => Promise.resolve({
+      role: 'assistant',
+      content: [
+        system,
+        messages[messages.length - 1].content,
+        assistantReply
+      ].map(text => ({ type: 'text', text }))
+    }));
 
     const result = await assistant.converse([
       { message: 'hello!', reply: 'hi...' }
     ], userMessage);
 
-    expect(result).to.equal(`${systemPrompt}\n\n${userMessage}\n\n${assistantReply}`);
+    expect(result).to.equal(`${systemPrompt}\n${userMessage}\n${assistantReply}`);
   });
 });

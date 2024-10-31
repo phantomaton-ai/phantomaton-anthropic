@@ -14,7 +14,12 @@ class Assistant {
       { role: 'assistant', content: reply }
     ]), { role: 'user', content: message } ];
     const system = this.system();
-    return this.instance.converse(messages, system);
+    const { content } = await this.instance.converse(messages, system);
+    return content.filter(
+      ({ type }) => type === 'text'
+    ).map(
+      ({ text }) => text
+    ).join('\n');
   }
 }
 

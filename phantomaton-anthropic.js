@@ -23,7 +23,7 @@ const anthropic = (options = {}) => {
   instance.install = [
     conversations.assistant.provider(
       [system.system.resolve],
-      ([system]) => () => new Assistant(instance, system)
+      ([system]) => new Assistant(instance, system)
     )
   ];
   return instance;

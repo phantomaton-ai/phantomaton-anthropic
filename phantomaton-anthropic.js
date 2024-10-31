@@ -12,7 +12,7 @@ class Assistant {
     const messages = [...turns.map(({ message, reply }) => [
       { role: 'user', content: message },
       { role: 'assistant', content: reply }
-    ]), { role: 'user', content: message } ];
+    ]).flat(), { role: 'user', content: message } ];
     const system = this.system();
     const { content } = await this.instance.converse(messages, system);
     return content.filter(

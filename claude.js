@@ -37,7 +37,11 @@ class Claude {
       }
 
       const { role, content } = await fetched.json();
-      return { role, content };
+      return content.filter(
+        ({ type }) => type === 'text'
+      ).map(
+        ({ text }) => text
+      ).join('\n');
     } catch (error) {
       if (error instanceof ClaudeError) {
         throw error;

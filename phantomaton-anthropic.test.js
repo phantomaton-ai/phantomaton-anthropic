@@ -26,8 +26,7 @@ describe('Phantomaton Anthropic', () => {
     container.install(priestess.input.resolver());
     container.install(priestess.input.provider([], () => () => systemPrompt));
 
-    const [getAssistant] = container.resolve(conversations.assistant.resolve);
-    const assistant = getAssistant();
+    const [assistant] = container.resolve(conversations.assistant.resolve);
 
     instance.converse.callsFake((messages, system) => [
       system,

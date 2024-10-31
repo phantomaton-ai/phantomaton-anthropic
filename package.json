@@ -18,13 +18,13 @@
   "type": "module",
   "description": "",
   "dependencies": {
-    "lovecraft": "^1.0.2",
     "node-fetch": "^3.3.2",
     "phantomaton-conversations": "^1.0.0",
     "phantomaton-system": "^1.0.0"
   },
   "devDependencies": {
     "hierophant": "^1.0.1",
+    "lovecraft": "^1.0.3",
     "priestess": "^1.0.1"
   }
 }

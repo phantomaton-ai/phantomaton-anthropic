@@ -1,6 +1,5 @@
 import { expect, stub } from 'lovecraft';
 import claude, { deps, ClaudeError } from './claude.js';
-import fetch from 'node-fetch';
 
 describe('Claude', () => {
   let instance;
@@ -12,6 +11,26 @@ describe('Claude', () => {
 
   afterEach(() => {
     deps.fetch.restore();
+  });
+
+  describe('options', () => {
+    it('get passed down to the API', () => {
+      const options = { apiKey: 'test-api-key', model: 'foo', maxTokens: 123 };
+      claude(options).converse([{ role: 'user', content: 'Hello' }]);
+      expect(deps.fetch.calledOnce).to.equal(true);
+      const body = JSON.parse(deps.fetch.lastCall.args[1].body);
+      expect(body.model).to.equal(options.model);
+      expect(body.max_tokens).to.equal(options.maxTokens);
+    });
+
+    it('provide defaults', () => {
+      const options = { apiKey: 'test-api-key'};
+      claude(options).converse([{ role: 'user', content: 'Hello' }]);
+      expect(deps.fetch.calledOnce).to.equal(true);
+      const body = JSON.parse(deps.fetch.lastCall.args[1].body);
+      expect(body.model).to.be.a('string').not.empty;
+      expect(body.max_tokens).to.be.a('number').greaterThan(0);
+    });
   });
 
   describe('converse', () => {

@@ -17,7 +17,11 @@ Once the package has been installed, you can integrate the Anthropic adapter int
 ```javascript
 import { claude } from 'phantomaton-anthropic';
 
-const converse = (messages) => claude({ apiKey: 'your-anthropic-api-key' }).converse(messages);
+const converse = (messages) => claude({
+  apiKey: 'your-anthropic-api-key',     // Required
+  maxTokens: 2048,                      // 4096 by default
+  model: 'claude-3-7-sonnet-20250219'   // 'claude-3-haiku-20240307'
+}).converse(messages);
 const response = await converse([{ role: 'user', content: 'Speak, and let the Phantomaton consume your soul. 🕷️' }]);
 console.log(response.content);
 ```

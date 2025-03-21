@@ -1,6 +1,6 @@
 {
   "name": "phantomaton-anthropic",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "phantomaton-anthropic.js",
   "scripts": {
     "all": "lovecraft -a",

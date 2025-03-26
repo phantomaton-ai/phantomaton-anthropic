@@ -25,6 +25,7 @@ class Assistant {
 
 const anthropic = (options = {}) => {
   const instance = claude(options);
+  instance.include = ['phantomaton-conversations', 'phantomaton-system'];
   instance.install = [
     conversations.assistant.provider(
       [system.system.resolve],

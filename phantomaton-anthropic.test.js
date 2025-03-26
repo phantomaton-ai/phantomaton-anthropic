@@ -43,4 +43,10 @@ describe('Phantomaton Anthropic', () => {
 
     expect(result).to.equal(`${systemPrompt}\n${userMessage}\n${assistantReply}`);
   });
+
+  it('includes dependencies on conversations and system prompt', () => {
+    expect(instance.include).deep.eq(
+      ['phantomaton-conversations', 'phantomaton-system']
+    );
+  });
 });

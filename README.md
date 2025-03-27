@@ -12,7 +12,7 @@ npm install phantomaton-anthropic
 
 ## Usage 🕸️
 
-Once the package has been installed, you can integrate the Anthropic adapter into your Phantomaton-powered applications by conjuring the `claude` function:
+### Standalone Usage
 
 ```javascript
 import { claude } from 'phantomaton-anthropic';
@@ -26,7 +26,15 @@ const response = await converse([{ role: 'user', content: 'Speak, and let the Ph
 console.log(response.content);
 ```
 
-The `claude` function creates a new `Claude` instance that can be used to channel the dark energies of the Anthropic API. Be sure to provide your own Anthropic API key to complete the ritual.
+### Phantomaton Plugin Usage
+
+When using with [Phantomaton](https://github.com/phantomaton-ai/phantomaton), you can install the module directly:
+
+```markdown
+/install(module:phantomaton-anthropic)
+```
+
+The `include` and `install` methods are automatically handled by the Phantomaton runtime.
 
 ## Customization 🕯️
 
